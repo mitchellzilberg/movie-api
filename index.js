@@ -74,10 +74,10 @@ let FavouriteMovies = [];
 
 function normalizeUser (user) {
   console.log(user);
-  const { _id: id, Username: username, Password: password, Email: email, FavouriteMovies: favouriteMovies } = user;
+  const { _id: id, Username: username, Password: password, Email: email, Birthday: birthday, FavouriteMovies: favouriteMovies } = user;
 
   return {
-    id, username, email, password, favouriteMovies
+    id, username, email, password, birthday, favouriteMovies
   };
   // response.json(normalizeUser(user));
 }
