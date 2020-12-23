@@ -25,9 +25,9 @@ const express = require("express"),
   bodyParser = require("body-parser");
 
 const app = express();
-// const cors = require("cors");
+const cors = require("cors");
 
-// app.use(cors());
+app.use(cors());
 app.use(morgan("common"));
 app.use(express.static("public"));
 app.use(bodyParser.json());
@@ -48,7 +48,7 @@ let FavouriteMovies = [];
 
 //Allows all domains to make api requests
 // let allowedOrigins = ["http://localhost:1234"];
-// let allowedOrigins = ["*"];
+let allowedOrigins = ["*"];
 
 // app.use(
 //   cors({
