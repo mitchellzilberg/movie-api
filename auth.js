@@ -21,9 +21,9 @@ module.exports = router => {
         return res.status(400).json({
           message: "Something is not right",
           user: {
-            username: user.Username, 
-            email: user.Email,
-            birthday: user.Birthday
+            Username: user.Username, 
+            Email: user.Email,
+            Birthday: user.Birthday
           }
         });
       }
