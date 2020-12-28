@@ -74,10 +74,10 @@ let allowedOrigins = ["*"];
 
 function normalizeUser (user) {
   console.log(user);
-  const { _id: id, Username: username, Password: password, Email: email, Birthday: birthday, FavouriteMovies: favouriteMovies } = user;
+  const { _id: id, Username: username, Email: email, Birthday: birthday, FavouriteMovies: favouriteMovies } = user;
 
   return {
-    id, username, email, password, birthday, favouriteMovies
+    id, username, email, birthday, favouriteMovies
   };
   // response.json(normalizeUser(user));
 }
