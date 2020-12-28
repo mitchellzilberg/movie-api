@@ -20,7 +20,11 @@ module.exports = router => {
       if (error || !user) {
         return res.status(400).json({
           message: "Something is not right",
-          user: user
+          user: {
+            username: user.Username, 
+            email: user.Email,
+            birthday: user.Birthday
+          }
         });
       }
       req.login(user, { session: false }, error => {
