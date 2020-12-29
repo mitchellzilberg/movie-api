@@ -3,14 +3,16 @@ const bcrypt = require("bcrypt");
 
 let movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
-  Despcription: { type: String, required: true },
+  Description: { type: String, required: true },
   Genre: {
     Name: String,
     Description: String
   },
   Director: {
     Name: String,
-    Bio: String
+    Bio: String,
+    Birth: String,
+    Death: String
   },
   Actors: [String],
   ImagePath: String,
@@ -26,7 +28,8 @@ let userSchema = mongoose.Schema({
 });
 
 userSchema.statics.hashPassword = password => {
-  return bcrypt.hashSync(password, 10);
+  const salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
 };
 
 userSchema.methods.validatePassword = function(password) {
