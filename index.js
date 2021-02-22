@@ -287,16 +287,35 @@ app.put(
       return res.status(422).json({ errors: errors.array() });
     }
 
+    let object = {
+      // Username: req.body.username, 
+      // Email: req.body.email,
+      // Birthday: req.body.birthday
+    }
+
+    if (req.body.password) {
+      object.Password = req.body.password
+    }
+    if (req.body.username) {
+      object.Username = req.body.username
+    }
+    if (req.body.email) {
+      object.Email = req.body.email
+    }
+    if (req.body.birthday) {
+      object.Birthday = req.body.birthday
+    }
+
 
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
-        $set: {
-          Username: req.body.username,
-          Password: req.body.password,
-          Email: req.body.email,
-          Birthday: req.body.birthday
-        }
+        $set: object
+          // Username: req.body.username,
+          // Password: req.body.password,
+          // Email: req.body.email,
+          // Birthday: req.body.birthday
+        
       },
       { new: true }, //This line makes sure that the updated document is returned
       (err, updatedUser) => {
