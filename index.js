@@ -265,36 +265,22 @@ app.post(
 
 // Updates a users info by username
 app.put(
-  "/users/:Username",
+  "/users/:id",
   passport.authenticate("jwt", { session: false }),
-  // [
-  //   check("Username", "Username is required").isLength({ min: 5 }),
-  //   check(
-  //     "Username",
-  //     "Username contains non alphanumeric characters - not allowed,"
-  //   ).isAlphanumeric(),
-  //   check("Password", "Password is required")
-  //     .not()
-  //     .isEmpty(),
-  //   check("Email", "Email does not seem to be valid.").isEmail()
-  // ],
+
   (req, res) => {
     // check the validation object for errors
-    console.log('req.body = ', req.body);
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let object = {
-      // Username: req.body.username, 
-      // Email: req.body.email,
-      // Birthday: req.body.birthday
-    }
+    let object = {}
 
     if (req.body.password) {
-      object.Password = req.body.password
+      let hashedPassword = Users.hashPassword(req.body.password);
+      object.Password = hashedPassword;
     }
     if (req.body.username) {
       object.Username = req.body.username
@@ -307,23 +293,15 @@ app.put(
     }
 
 
-    Users.findOneAndUpdate(
-      { Username: req.params.Username },
-      {
-        $set: object
-          // Username: req.body.username,
-          // Password: req.body.password,
-          // Email: req.body.email,
-          // Birthday: req.body.birthday
-        
-      },
+    Users.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: object },
       { new: true }, //This line makes sure that the updated document is returned
       (err, updatedUser) => {
         if (err) {
           console.error(err);
           res.status(500).send("Error: " + err);
         } else {
-          // res.json(updatedUser);
           res.json(normalizeUser(updatedUser));
         }
       }
