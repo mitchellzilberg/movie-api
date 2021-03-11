@@ -5,6 +5,12 @@ const jwt = require("jsonwebtoken"),
 
 require("./passport"); //passport.js
 
+/**
+ * Function to generate token, set expiration date, and algorithm used to
+ * "sign" or encode the values of the JWT Strategy
+ * @param user 
+ */
+
 let generateJWTToken = user => {
   return jwt.sign(user, jwtSecret, {
     subject: user.Username, //username being encoded in the JWT
@@ -12,6 +18,11 @@ let generateJWTToken = user => {
     algorithm: "HS256" //used to encode the values of the JWT
   });
 };
+
+/**
+ * api call to login endpoint which authenticates user after entering credentials
+ * @param router 
+ */
 
 //POST login
 module.exports = router => {

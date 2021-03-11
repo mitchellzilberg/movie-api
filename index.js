@@ -8,6 +8,14 @@ const Models = require("./models.js");
 const Movies = Models.Movie;
 const Users = Models.User;
 
+/**
+ * list off all inused modules 
+ * 
+ * @param {string} list - list of all  
+ * 
+ */
+
+
 // Local database
 // mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 //   useNewUrlParser: true,
@@ -50,27 +58,6 @@ let FavouriteMovies = [];
 // let allowedOrigins = ["http://localhost:4200"];
 let allowedOrigins = ["*"];
 
-// app.use(
-//   cors({
-//     origin: "*",
-//   })
-// );
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin) return callback(null, true);
-//       if (allowedOrigins.indexOf(origin) === -1) {
-//         // If a specific origin isn’t found on the list of allowed origins
-//         let message =
-//           "The CORS policy for this application doesn’t allow access from origin " +
-//           origin;
-//         return callback(new Error(message), false);
-//       }
-//       return callback(null, true);
-//     }
-//   })
-// );
 
 function normalizeUser (user) {
   console.log(user);
@@ -106,7 +93,14 @@ app.get("/", (req, res) => {
 
 //----------------------MOVIES-----------------------------
 
-// Return all movies
+/**
+ * GET all movies
+ * 
+ * the API to get all movies list 
+ * @returns {string} movies 
+ * 
+ */
+
 app.get(
   "/movies",
   passport.authenticate('jwt', { session: false}), 
@@ -122,7 +116,13 @@ app.get(
   }
 );
 
-// Returns data about a single movie by title
+/**
+ * 
+ * the API req to get one movie by title 
+ * 
+ * @param {string} Title returns movie by title
+ * @returns {string} movie 
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate('jwt', { session: false}), 
@@ -139,7 +139,14 @@ app.get(
   }
 );
 
-// Returns data about a specific genre by genre name
+/**
+ * 
+ * the API to get one genre by name
+ * 
+ * @param {string} Title returns genre by title
+ * @returns {string} genre 
+ */
+
 app.get(
   "/movies/genre/:Name",
   passport.authenticate('jwt', { session: false}), 
@@ -156,7 +163,15 @@ app.get(
   }
 );
 
-// Returns data about a specific director by genre name
+/**
+ * 
+ * the API to get director by name 
+ * 
+ * @param {string} Name returns movie by title
+ * @returns {string} Director 
+ */
+
+
 app.get(
   "/movies/director/:Name",
   passport.authenticate('jwt', { session: false}), 
@@ -179,7 +194,15 @@ app.get(
 
 // -------------------------USERS-------------------------------------
 
-// GET all users
+// Get all users
+
+/**
+ * 
+ * the API to get all users
+ * 
+ * @returns {array} users 
+ */
+
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -196,7 +219,15 @@ app.get(
   }
 );
 
-// GET a user by username
+// Get User by Username
+/**
+ * 
+ * the API to get users information
+ * 
+ * @param {string} Username returns user by username
+ * @returns {string} user
+ */
+
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -212,7 +243,17 @@ app.get(
   }
 );
 
-//Allow user to register
+/**
+ * the API to create new user
+ * 
+ * @param {string} Username - username 
+ * @param {string} Password - Password, String, Alphanumeric
+ * @param {string} Email - users email
+ * @param {date} Birthdy - users birthday date 
+ * @returns {object} returns new user to the DataBase
+ * 
+ */
+
 app.post(
   "/users",
   // [
@@ -263,7 +304,18 @@ app.post(
   }
 );
 
-// Updates a users info by username
+// PUT updates to users info
+/**
+ * the API to update users info
+ * 
+ * @param {string} Username - new username 
+ * @param {string} Password - new Password, Alphanumeric
+ * @param {string} Email - new users email
+ * @param {date} Birthdy - new users birthday date  
+ * @returns {object} Update  user in the DataBase
+ * 
+ */
+
 app.put(
   "/users/:id",
   passport.authenticate("jwt", { session: false }),
@@ -309,7 +361,16 @@ app.put(
   }
 );
 
-//Add a movie to a users list of favourites
+// POST new movie to fav list
+/**
+ * 
+ * the API to add movie to list of favourites 
+ * 
+ * @param {string} Usernaem users info
+ * @param {string} MovieID movie by title
+ * @returns {string} movie to favotite list  
+ */
+
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -332,7 +393,16 @@ app.post(
   }
 );
 
-//Remove a movie from a users list of favourites
+/**
+ * 
+ * the API to delete movie from fav list
+ * 
+ * @param {string} Usernaem users info
+ * @param {string} MovieID movie by title
+ * @returns {string} movie to favotite list  
+ * 
+ */
+
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -356,7 +426,14 @@ app.delete(
   }
 );
 
-// Delete a user by username
+// DELETE users account
+
+/**
+ * API to add remove users account from DataBase 
+ * @param {string} Username users username
+ * @returns {string} user removed from database 
+ */
+
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
